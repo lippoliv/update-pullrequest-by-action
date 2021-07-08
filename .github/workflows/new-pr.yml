@@ -14,5 +14,4 @@ jobs:
     steps:
       - name: label
         run: |
-          echo "$GITHUB_EVENT_PATH"
-          cat "$GITHUB_EVENT_PATH"
+          cat "$GITHUB_EVENT_PATH" | jq '.pull_request.issue.href'
