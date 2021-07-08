@@ -12,7 +12,17 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: label
+      - name: get pr url
         run: |
           export PR_URL=$(cat "$GITHUB_EVENT_PATH" | jq '.pull_request._links.issue.href')
-          echo "$PR_URL"
+      - name: add label
+        run: |
+          curl \
+            --request POST \
+            --url "$PR_URL" \
+            --header 'Authorization: Bearer ${{ secrets.GITHUB_TOKEN }}' \
+            --header 'Content-Type: application/json' \
+            --data '{
+              labels: ["enhancement"]
+            }' \
+            --fail
