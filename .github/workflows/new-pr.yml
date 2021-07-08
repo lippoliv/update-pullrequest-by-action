@@ -1,4 +1,4 @@
-name: New pull request to main
+name: PR to main
 
 on:
   pull_request:
@@ -12,6 +12,14 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: label
+      - name: add label
         run: |
-          echo "hi"
+          export PR_URL=$(cat "$GITHUB_EVENT_PATH" | jq '.pull_request._links.issue.href' | cut -d '"' -f 2)
+          curl --request POST \
+            --url $PR_URL \
+            --header 'Authorization: Bearer ${{ secrets.GITHUB_TOKEN }}' \
+            --header 'Content-Type: application/json' \
+            --data '{
+              "labels": ["enhancement"]
+            }' \
+            --fail
