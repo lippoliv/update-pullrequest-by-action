@@ -12,12 +12,9 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: get pr url
-        run: |
-          export PR_URL=$(cat "$GITHUB_EVENT_PATH" | jq '.pull_request._links.issue.href')
       - name: add label
         run: |
-          echo "$PR_URL"
+          export PR_URL=$(cat "$GITHUB_EVENT_PATH" | jq '.pull_request._links.issue.href')
           curl \
             --request POST \
             --url "$PR_URL" \
