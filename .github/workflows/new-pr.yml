@@ -14,4 +14,4 @@ jobs:
     steps:
       - name: label
         run: |
-          echo "hi"
+          echo ${{ github.GITHUB_EVENT_PATH }}
