@@ -5,6 +5,21 @@ requests towards main branch.
 
 So the question came up: **Can we have an workflow triggered by opening pull requests towards main branch?**
 
+## Run GitHub Action workflow on new pull request towards main branch
+
+In GitHub it's quiet easy to run workflows on pull request creation to some specific branch:
+
+```shell
+on:
+  pull_request:
+    branches:
+      - 'main'
+    types:
+      - opened
+```
+
+This defines to run this workflow on pull requests towards main branch and just in the moment of PR creation.
+
 ## Set label for pull request by GitHub Action
 
 In the [add label](https://github.com/lippoliv/update-pullrequest-by-action/blob/main/.github/workflows/new-pr.yml#L14)
