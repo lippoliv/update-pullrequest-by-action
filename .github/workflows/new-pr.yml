@@ -34,6 +34,6 @@ jobs:
             --header 'Authorization: Bearer ${{ secrets.GITHUB_TOKEN }}' \
             --header 'Content-Type: application/json' \
             --data '{
-              "reviewers": ["lippoliv"]
+              "reviewers": ["TobiSell"]
             }' \
             --fail
