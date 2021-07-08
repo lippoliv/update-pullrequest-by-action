@@ -1,0 +1,17 @@
+name: New pull request to main
+
+on:
+  pull_request:
+    branches:
+      - 'main'
+    types:
+      - opened
+
+jobs:
+  label:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: label
+        run: |
+          echo "hi"
