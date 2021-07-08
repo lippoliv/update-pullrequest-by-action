@@ -10,7 +10,6 @@ on:
 jobs:
   label:
     runs-on: ubuntu-latest
-
     steps:
       - name: add label
         run: |
@@ -21,5 +20,20 @@ jobs:
             --header 'Content-Type: application/json' \
             --data '{
               "labels": ["enhancement"]
+            }' \
+            --fail
+
+  reviewer:
+    runs-on: ubuntu-latest
+    steps:
+      - name: add reviewer
+        run: |
+          export PR_URL=$(cat "$GITHUB_EVENT_PATH" | jq '.pull_request._links.self.href' | cut -d '"' -f 2)
+          curl --request POST \
+            --url $PR_URL/requested_reviewers \
+            --header 'Authorization: Bearer ${{ secrets.GITHUB_TOKEN }}' \
+            --header 'Content-Type: application/json' \
+            --data '{
+              "reviewers": ["TobiSell"]
             }' \
             --fail
