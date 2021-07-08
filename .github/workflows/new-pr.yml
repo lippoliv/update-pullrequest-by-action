@@ -15,9 +15,8 @@ jobs:
     steps:
       - name: add label
         run: |
-          #export PR_URL=$(cat "$GITHUB_EVENT_PATH" | jq '.pull_request._links.issue.href')
-          export PR_URL="https://api.github.com/repos/lippoliv/update-pullrequest-by-action/issues/11"
-          echo "$PR_URL"
+          export PR_URL=$(cat "$GITHUB_EVENT_PATH" | jq '.pull_request._links.issue.href')
+          echo $PR_URL
           curl --request POST \
             --url $PR_URL \
             --header 'Authorization: Bearer ${{ secrets.GITHUB_TOKEN }}' \
