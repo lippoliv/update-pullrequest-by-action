@@ -17,6 +17,7 @@ jobs:
           export PR_URL=$(cat "$GITHUB_EVENT_PATH" | jq '.pull_request._links.issue.href')
       - name: add label
         run: |
+          echo "$PR_URL"
           curl \
             --request POST \
             --url "$PR_URL" \
