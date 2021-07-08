@@ -28,7 +28,7 @@ jobs:
     steps:
       - name: add reviewer
         run: |
-          export PR_URL=$(cat "$GITHUB_EVENT_PATH" | jq '.pull_request._links.issue.self' | cut -d '"' -f 2)
+          export PR_URL=$(cat "$GITHUB_EVENT_PATH" | jq '.pull_request._links.self.href' | cut -d '"' -f 2)
           curl --request POST \
             --url $PR_URL/requested_reviewers \
             --header 'Authorization: Bearer ${{ secrets.GITHUB_TOKEN }}' \
