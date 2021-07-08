@@ -1,6 +1,7 @@
 name: New pull request to main
 
 on:
+  push:
   pull_request:
     branches:
       - 'main'
@@ -14,14 +15,14 @@ jobs:
     steps:
       - name: add label
         run: |
-          export PR_URL=$(cat "$GITHUB_EVENT_PATH" | jq '.pull_request._links.issue.href')
+          #export PR_URL=$(cat "$GITHUB_EVENT_PATH" | jq '.pull_request._links.issue.href')
+          export PR_URL="https://api.github.com/repos/lippoliv/update-pullrequest-by-action/issues/11"
           echo "$PR_URL"
-          curl \
-            --request POST \
-            --url "$PR_URL" \
+          curl --request POST \
+            --url $PR_URL \
             --header 'Authorization: Bearer ${{ secrets.GITHUB_TOKEN }}' \
             --header 'Content-Type: application/json' \
             --data '{
-              labels: ["enhancement"]
+              "labels": ["enhancement"]
             }' \
             --fail
